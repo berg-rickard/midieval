@@ -1,0 +1,23 @@
+{
+  "name": "midieval",
+  "version": "1.0.0",
+  "description": "An Observable wrapper for the WebMidi API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berg-rickard/midieval.git"
+  },
+  "keywords": [
+    "webmidi",
+    "rxjs"
+  ],
+  "author": "Rickard Berg (rickard@emerbee.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/berg-rickard/midieval/issues"
+  },
+  "homepage": "https://github.com/berg-rickard/midieval#readme"
+}
