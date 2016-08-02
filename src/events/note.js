@@ -23,6 +23,9 @@ const NOTE_MAP = [
 ]
 
 export class Note extends MidiEvalMessage {
+	static predicate(data) {
+		return (data[0] >> 4 & 0b0111) < 3
+	}
 	get type() {
 		const typeIndex = this._data[0] >> 4 & 0b0111
 		return TYPE_MAP[typeIndex]
@@ -36,4 +39,14 @@ export class Note extends MidiEvalMessage {
 	get octave() {
 		return Math.floor(this._data[1] / 12 - 5)
 	}
+
+	get channel() {
+		return this._data[0] & 0b1111 + 1
+	}
+
+	get velocity() {
+		return this._data[2]
+	}
 }
+
+MidiEvalMessage.register(Note)
