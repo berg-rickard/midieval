@@ -1,8 +1,9 @@
 module.exports = {
 	entry: './src/midieval.js',
 	output: {
-		filename: 'index.js',
-		library: 'midieval'
+		filename: 'midieval.js',
+		library: 'midieval',
+		path: './dist'
 	},
 	module: {
 		loaders: [
