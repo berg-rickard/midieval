@@ -91,6 +91,11 @@ export class Note extends MidiEvalMessage {
 	set velocity(velocity) {
 		this._data[2] = clamp(velocity, 0, 127)
 	}
+
+	transpose(i) {
+		this._data[1] = clamp(this._data[1] + i, 0, 127)
+		return this
+	}
 }
 
 MidiEvalMessage.register(Note)
