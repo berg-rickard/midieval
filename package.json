@@ -1,6 +1,6 @@
 {
   "name": "midieval",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An Observable wrapper for the WebMidi API",
   "main": "dist/midieval.js",
   "scripts": {
