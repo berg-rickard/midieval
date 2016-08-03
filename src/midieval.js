@@ -16,13 +16,15 @@ function iterableToArray(iterable) {
 	return arr
 }
 
-const distinct = function(selector) {
+function distinct(selector) {
 	const set = new Set()
 	return function(item) {
 		return set.has(selector(item)) ? false : !!set.add(selector(item))
 	}
 }
+let message$
 module.exports = function midieval() {
+	if (message$) { return message$ }
 	const midi$ = Rx.Observable.fromPromise(navigator.requestMIDIAccess())
 	// Output
 	const originalOutputs$ = midi$
@@ -36,7 +38,17 @@ module.exports = function midieval() {
 		.map(iterableToArray)
 		.merge(originalOutputs$)
 
-	outputs$.subscribe((outputs) => midieval.outputs = outputs)
+	midieval.output = Rx.Subject.create()
+	midieval.output
+		.withLatestFrom(outputs$)
+		.subscribe(([message, outputs]) => {
+			if (message.message && message.selector instanceof Function) {
+				outputs = outputs
+					.filter(message.selector)
+				message = message.message
+			}
+			outputs.forEach((output) => output.send(message._data, message.timeStamp))
+		})
 
 	// Input
 	const originalInput$ = midi$
@@ -52,7 +64,7 @@ module.exports = function midieval() {
 		.merge(originalInput$)
 		.filter(distinct(({id}) => id))
 
-	const message$ = input$
+	message$ = input$
 		.flatMap((input) => Rx.Observable.fromEvent(input, 'midimessage'))
 		.map(({data, timeStamp}) => MidiEvalMessage.create(data, timeStamp))
 
