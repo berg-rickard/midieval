@@ -9,3 +9,5 @@ export class ProgramChange extends MidiEvalMessage {
 		return this._data[1]
 	}
 }
+
+MidiEvalMessage.register(ProgramChange)
