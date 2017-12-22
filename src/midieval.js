@@ -1,12 +1,18 @@
-import { Message } from './events/message'
-import { Note } from './events/note'
-import { ProgramChange } from './events/program-change'
-import { ControlChange } from './events/control-change'
-import { ChannelPressure } from './events/channel-pressure'
+import { Message, ChannelMessage } from './messages/message'
+import { Note } from './messages/note'
+import { ProgramChange } from './messages/program-change'
+import { ControlChange } from './messages/control-change'
+import { ChannelPressure } from './messages/channel-pressure'
+import { PitchBend } from './messages/pitch-bend'
 
 const midieval = {
 	Message,
+	ChannelMessage,
 	Note,
+	ProgramChange,
+	ControlChange,
+	ChannelPressure,
+
 	in: function (callback) {
 		navigator.requestMIDIAccess().then((midi) => {
 			function listener(evt, input) {
@@ -14,7 +20,7 @@ const midieval = {
 				callback(message)
 			}
 
-			const inputs = [];
+			const inputs = []
 			for (const input of midi.inputs.values()) {
 				inputs.push(input)
 				input.addEventListener('midimessage', (evt) => listener(evt, input))

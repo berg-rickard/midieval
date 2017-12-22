@@ -1,6 +1,6 @@
-import {Message} from './message'
+import { Message, ChannelMessage } from './message'
 
-export class ProgramChange extends Message {
+export class ProgramChange extends ChannelMessage {
 	static predicate(data) {
 		return (data[0] >> 4 & 0b0111) === 4
 	}
@@ -8,6 +8,7 @@ export class ProgramChange extends Message {
 	constructor(data, timeStamp, input) {
 		super(data, timeStamp, input)
 		this.type = 'Program Change'
+
 		this.value = data[1]
 	}
 }
