@@ -7,8 +7,7 @@ So far it only supports listening to MIDI messages (not sending) and is used in 
 ```js
 midieval.in(function(msg) {
 	if (msg.type === 'Unknown') { return; }
-	console.log(msg)
-
+	console.log(msg);
 });
 ```
 
