@@ -1,9 +1,9 @@
-import {Message, ChannelMessage} from './message'
+import { Message, ChannelMessage } from './message'
 
 const TYPE_MAP = [
 	'Note Off',
 	'Note On',
-	'Aftertouch'
+	'Aftertouch',
 ]
 
 const NOTE_MAP = [
@@ -18,7 +18,7 @@ const NOTE_MAP = [
 	'Ab',
 	'A',
 	'Bb',
-	'B'
+	'B',
 ]
 
 export class Note extends ChannelMessage {
@@ -28,10 +28,9 @@ export class Note extends ChannelMessage {
 
 	constructor(data, timeStamp, input) {
 		super(data, timeStamp, input)
-
 		this.type = TYPE_MAP[data[0] >> 4 & 0b0111]
-		this.note = NOTE_MAP[this._data[1] % 12]
 
+		this.note = NOTE_MAP[this._data[1] % 12]
 		this.octave = Math.floor(data[1] / 12 - 5)
 		this.velocity = data[2]
 	}

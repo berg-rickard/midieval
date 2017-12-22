@@ -11,8 +11,9 @@ export class Message {
 
 	constructor(data, timeStamp, input) {
 		this._data = data
-		this.timeStamp = timeStamp
 		this.type = 'Unknown'
+
+		this.timeStamp = timeStamp
 		this.device = {
 			id: input.id,
 			name: input.name,

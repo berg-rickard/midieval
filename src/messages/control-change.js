@@ -1,4 +1,4 @@
-import {Message} from './message'
+import { Message, ChannelMessage } from './message'
 
 const CONTROLLER_MAP = {
 	0: 'Bank Select',
@@ -80,15 +80,15 @@ const CONTROLLER_MAP = {
 	127: '[Channel Mode Message] Poly Mode On (+ mono off, +all notes off)',
 }
 
-export class ControlChange extends Message {
+export class ControlChange extends ChannelMessage {
 	static predicate(data) {
 		return (data[0] >> 4 & 0b0111) === 3
 	}
 
 	constructor(data, timeStamp, input) {
 		super(data, timeStamp, input)
-
 		this.type = 'Control Change'
+
 		this.controller = CONTROLLER_MAP[data[1]] || data[1]
 		this.value = data[2]
 	}

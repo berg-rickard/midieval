@@ -1,4 +1,4 @@
-import {Message, ChannelMessage} from './message'
+import { Message, ChannelMessage } from './message'
 
 export class ChannelPressure extends ChannelMessage {
 	static predicate(data) {
