@@ -1,4 +1,4 @@
-import {Message} from './message'
+import {Message, ChannelMessage} from './message'
 
 const TYPE_MAP = [
 	'Note Off',
@@ -21,7 +21,7 @@ const NOTE_MAP = [
 	'B'
 ]
 
-export class Note extends Message {
+export class Note extends ChannelMessage {
 	static predicate(data) {
 		return (data[0] >> 4 & 0b0111) < 3
 	}
@@ -33,7 +33,6 @@ export class Note extends Message {
 		this.note = NOTE_MAP[this._data[1] % 12]
 
 		this.octave = Math.floor(data[1] / 12 - 5)
-		this.channel = (data[0] & 0b1111) + 1
 		this.velocity = data[2]
 	}
 }

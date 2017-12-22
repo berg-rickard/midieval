@@ -1,11 +1,15 @@
-import {MidiEvalMessage} from './midieval-message'
+import {Message, ChannelMessage} from './message'
 
-export class ChannelPressure extends MidiEvalMessage {
-	get type() {
-		return 'Channel Pressure'
+export class ChannelPressure extends ChannelMessage {
+	static predicate(data) {
+		return (data[0] >> 4 & 0b0111) === 5
 	}
 
-	get value() {
-		return this._data[1]
+	constructor(data, timeStamp, input) {
+		super(data, timeStamp, input)
+		this.type = 'Channel Pressure'
+		this.value = data[1]
 	}
 }
+
+Message.register(ChannelPressure)

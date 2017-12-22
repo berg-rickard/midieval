@@ -1,9 +1,12 @@
 import { Message } from './events/message'
 import { Note } from './events/note'
+import { ProgramChange } from './events/program-change'
+import { ControlChange } from './events/control-change'
+import { ChannelPressure } from './events/channel-pressure'
 
 const midieval = {
-	Message: Message,
-	Note: Note,
+	Message,
+	Note,
 	in: function (callback) {
 		navigator.requestMIDIAccess().then((midi) => {
 			function listener(evt, input) {

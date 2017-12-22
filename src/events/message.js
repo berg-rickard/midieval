@@ -19,3 +19,10 @@ export class Message {
 		}
 	}
 }
+
+export class ChannelMessage extends Message {
+	constructor(data, timeStamp, input) {
+		super(data, timeStamp, input)
+		this.channel = (data[0] & 0b1111) + 1
+	}
+}

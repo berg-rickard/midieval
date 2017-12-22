@@ -1,13 +1,15 @@
-import {MidiEvalMessage} from './midieval-message'
+import {Message} from './message'
 
-export class ProgramChange extends MidiEvalMessage {
-	get type() {
-		return 'Program Change'
+export class ProgramChange extends Message {
+	static predicate(data) {
+		return (data[0] >> 4 & 0b0111) === 4
 	}
 
-	get value() {
-		return this._data[1]
+	constructor(data, timeStamp, input) {
+		super(data, timeStamp, input)
+		this.type = 'Program Change'
+		this.value = data[1]
 	}
 }
 
-MidiEvalMessage.register(ProgramChange)
+Message.register(ProgramChange)
